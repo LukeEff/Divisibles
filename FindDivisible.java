@@ -7,49 +7,46 @@ public class FindDivisible {
 
 	Integer num;
 	private ArrayList<Integer> allDivisibles;
-	
+
 	public FindDivisible() {
-	allDivisibles = new ArrayList<Integer>();
+		allDivisibles = new ArrayList<Integer>();
 	}
-	
+
 	public ArrayList<Integer> getDivisibles() {
 		return allDivisibles;
 	}
-	
+
 	public void setNum() {
+		allDivisibles.clear();
 		Scanner userNum = new Scanner(System.in);
 		System.out.println("Please enter a number: ");
 		confirmInput(userNum);
 	}
-	
+
 	private void setDivisibles() {
-		allDivisibles.clear();
-		for(int i = 1; i < ((num/2) + 1); i++) {
-			if(checkDivisible(i)) {
+		for (int i = 1; i < ((num / 2) + 1); i++) {
+			if (checkDivisible(i)) {
 				allDivisibles.add(i);
 			}
 		}
+		allDivisibles.add(num);
 	}
-	
+
 	private void confirmInput(Scanner userNum) {
-		try { 
-			Integer num = userNum.nextInt();
-			this.num = num;
+		try {
+			this.num = userNum.nextInt();
 			setDivisibles();
 		} catch (Exception e) {
 			System.out.println("You can only use integers!");
-			setNum();
 		}
 	}
-	
-	private boolean checkDivisible(int num) {	
+
+	private boolean checkDivisible(int num) {
 		if (this.num % num == 0) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
 
-	
 }
