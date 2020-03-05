@@ -1,15 +1,31 @@
 package io.github.lukeeff;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+//TODO make it so you can change the num 
+//TODO static method for getting divisibles of random number
 
 public class FindDivisible {
 
 	Integer num;
 	private ArrayList<Integer> allDivisibles;
 
-	public FindDivisible() {
+	/**
+	 * FindDivisible constructor that will not require user input
+	 * @param num number for divisibles
+	 */
+	public FindDivisible(int num) {
 		allDivisibles = new ArrayList<Integer>();
+		setNum(num);
+	}
+
+	/**
+	 * 
+	 * @param num number that we want the divisibles of
+	 * @return ArrayList of Integers that are divisible of parameter num
+	 */
+	public ArrayList<Integer> getDivisibles(int num) {
+		return setDivisibles(num);
 	}
 
 	/**
@@ -25,40 +41,27 @@ public class FindDivisible {
 	 * Clears the ArrayList and asks the user for a number and then will call
 	 * confirmInput
 	 */
-	public void setNum() {
+	public void setNum(int num) {
+		this.num = num;
 		allDivisibles.clear();
-		Scanner userNum = new Scanner(System.in);
-		System.out.println("Please enter a number: ");
-		confirmInput(userNum);
+		allDivisibles = setDivisibles(num);
 	}
 
 	/**
 	 * Checks divisibles and sets the ArrayList with numbers that are divisible by
 	 * any number specified
 	 */
-	private void setDivisibles() {
+	private ArrayList<Integer> setDivisibles(int num) {
+		ArrayList<Integer> divisibles = new ArrayList<Integer>();
 		// for loop starts at 1 to prevent divideby0 exception and only goes to half of
 		// number being checked plus one to prevent unneccessary checking
-		for (int i = 1; i < ((num / 2) + 1); i++) {
-			if (checkDivisible(i)) {
-				allDivisibles.add(i);
+		for (int i = 1; i <= num / 2; i++) {
+			if (checkDivisible(i, num)) {
+				divisibles.add(i);
 			}
 		}
-		allDivisibles.add(num);
-	}
-
-	/**
-	 * Confirms an input is valid to be checked for divisibility by
-	 * 
-	 * @param userNum the number being checked for divisibility chosen by the user
-	 */
-	private void confirmInput(Scanner userNum) {
-		try {
-			this.num = userNum.nextInt();
-			setDivisibles();
-		} catch (Exception e) {
-			System.out.println("You can only use integers!");
-		}
+		divisibles.add(num);
+		return divisibles;
 	}
 
 	/**
@@ -67,8 +70,8 @@ public class FindDivisible {
 	 * @param num a number that may or may not be divisible of field variable num
 	 * @return true if divisible
 	 */
-	private boolean checkDivisible(int num) {
-		if (this.num % num == 0) {
+	private boolean checkDivisible(int i, int num) {
+		if (num % i == 0) {
 			return true;
 		} else {
 			return false;
